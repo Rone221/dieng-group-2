@@ -21,9 +21,19 @@ const publicSans = Public_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://maquette2.terangadev.com"),
   title: "The Dieng Group — Cross-border advisory, trade & development",
   description:
     "The Dieng Group advises private enterprises, NGOs and governments across West Africa and beyond — consulting, importing and exporting with integrity.",
+  openGraph: {
+    title: "The Dieng Group",
+    description:
+      "Cross-border advisory, importing and exporting — from Indianapolis to West Africa.",
+    siteName: "The Dieng Group",
+    type: "website",
+    locale: "en_US",
+  },
+  twitter: { card: "summary_large_image", title: "The Dieng Group" },
 };
 
 export default function RootLayout({
