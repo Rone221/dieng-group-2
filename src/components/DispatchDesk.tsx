@@ -99,7 +99,7 @@ function CaptureModal({ onClose }: { onClose: () => void }) {
   const ref = useDialogA11y(onClose);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-navy-deep/70 p-4" onClick={onClose}>
+    <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-navy-deep/70 p-4 sm:items-center" onClick={onClose}>
       <div ref={ref} role="dialog" aria-modal="true" aria-labelledby="w2-capture-title" className="relative w-full max-w-lg rounded bg-paper p-8 shadow-2xl" onClick={(e) => e.stopPropagation()}>
         <button onClick={onClose} aria-label="Close dialog" className="absolute right-4 top-3 flex h-9 w-9 items-center justify-center text-slate hover:text-ink">✕</button>
 

@@ -78,7 +78,7 @@ function MemberModal({ member, onClose, closeLabel }: { member: Member; onClose:
   }, [onClose]);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-navy-deep/70 p-4" onClick={onClose}>
+    <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-navy-deep/70 p-4 sm:items-center" onClick={onClose}>
       <div
         ref={ref}
         role="dialog"
