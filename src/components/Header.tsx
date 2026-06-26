@@ -25,17 +25,42 @@ export default function Header() {
         </Link>
 
         <nav className="hidden items-center gap-8 lg:flex">
-          {c.nav.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              aria-current={active(item.href) ? "page" : undefined}
-              className={`relative py-1 text-[0.92rem] font-medium transition-colors ${active(item.href) ? "text-navy dark:text-[#d8c4b2]" : "text-slate hover:text-ink"}`}
-            >
-              {item.label}
-              {active(item.href) && <span className="brand-bar absolute -bottom-[15px] left-0 right-0 h-[3px]" />}
-            </Link>
-          ))}
+          {c.navGroups.map((g) => {
+            const on = g.href ? active(g.href) : g.items.some((it) => active(it.href));
+            const cls = `text-[0.92rem] font-medium transition-colors ${on ? "text-navy dark:text-[#d8c4b2]" : "text-slate hover:text-ink"}`;
+            if (g.items.length === 0) {
+              return (
+                <Link key={g.label} href={g.href} aria-current={on ? "page" : undefined} className={`relative py-1 ${cls}`}>
+                  {g.label}
+                  {on && <span className="brand-bar absolute -bottom-[15px] left-0 right-0 h-[3px]" />}
+                </Link>
+              );
+            }
+            return (
+              <div key={g.label} className="group/nav relative">
+                <button type="button" aria-haspopup="true" className={`relative flex items-center gap-1 py-1 ${cls}`}>
+                  {g.label}
+                  <span className="text-[0.6rem] text-slate transition-transform group-hover/nav:rotate-180">▾</span>
+                  {on && <span className="brand-bar absolute -bottom-[15px] left-0 right-0 h-[3px]" />}
+                </button>
+                <div className="invisible absolute left-1/2 top-full z-40 -translate-x-1/2 pt-3 opacity-0 transition-all duration-150 group-hover/nav:visible group-hover/nav:opacity-100 group-focus-within/nav:visible group-focus-within/nav:opacity-100">
+                  <ul className="min-w-44 rounded border border-line bg-paper py-1.5 shadow-xl">
+                    {g.items.map((it) => (
+                      <li key={it.href}>
+                        <Link
+                          href={it.href}
+                          aria-current={active(it.href) ? "page" : undefined}
+                          className={`block px-4 py-2 text-[0.9rem] font-medium ${active(it.href) ? "text-navy dark:text-[#d8c4b2]" : "text-slate hover:bg-mist hover:text-ink"}`}
+                        >
+                          {it.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            );
+          })}
         </nav>
 
         <div className="flex items-center gap-2">

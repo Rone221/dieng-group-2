@@ -67,6 +67,12 @@ const en = {
     { label: "Dispatch", href: "/dispatch" },
     { label: "Contact", href: "/contact" },
   ],
+  navGroups: [
+    { label: "About", href: "", items: [ { label: "Overview", href: "/about" }, { label: "Team", href: "/team" } ] },
+    { label: "Services", href: "/services", items: [] as { label: string; href: string }[] },
+    { label: "Insights", href: "", items: [ { label: "Impact", href: "/impact" }, { label: "Podcast", href: "/podcast" }, { label: "Dispatch", href: "/dispatch" } ] },
+    { label: "Contact", href: "/contact", items: [] as { label: string; href: string }[] },
+  ],
   hero: {
     kicker: "Dispatch No. 01 · Meridian Park, Indianapolis",
     title: "We bring organizations closer to the people and partners they trade with.",
@@ -280,6 +286,12 @@ const fr: typeof en = {
     { label: "Podcast", href: "/podcast" },
     { label: "Dispatch", href: "/dispatch" },
     { label: "Contact", href: "/contact" },
+  ],
+  navGroups: [
+    { label: "À propos", href: "", items: [ { label: "Présentation", href: "/about" }, { label: "Équipe", href: "/team" } ] },
+    { label: "Services", href: "/services", items: [] as { label: string; href: string }[] },
+    { label: "Insights", href: "", items: [ { label: "Impact", href: "/impact" }, { label: "Podcast", href: "/podcast" }, { label: "Dispatch", href: "/dispatch" } ] },
+    { label: "Contact", href: "/contact", items: [] as { label: string; href: string }[] },
   ],
   hero: {
     kicker: "Dispatch n° 01 · Meridian Park, Indianapolis",
