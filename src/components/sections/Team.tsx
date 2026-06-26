@@ -87,7 +87,14 @@ function MemberModal({ member, onClose, closeLabel }: { member: Member; onClose:
         className="relative grid w-full max-w-2xl gap-6 rounded bg-paper p-6 shadow-2xl sm:grid-cols-[200px_1fr] sm:p-8"
         onClick={(e) => e.stopPropagation()}
       >
-        <button onClick={onClose} aria-label={closeLabel} className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center text-slate hover:text-ink">✕</button>
+        <button
+          onClick={onClose}
+          aria-label={closeLabel}
+          title={closeLabel}
+          className="absolute right-3 top-3 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-line bg-paper text-base text-ink shadow-md transition-colors hover:border-navy hover:bg-navy hover:text-on-dark"
+        >
+          ✕
+        </button>
 
         <div className="relative aspect-square w-full overflow-hidden rounded border border-line bg-mist-deep">
           {member.image ? (
@@ -108,6 +115,12 @@ function MemberModal({ member, onClose, closeLabel }: { member: Member; onClose:
           <div className="accent-rule mt-4" />
           <p className="mt-4 text-[0.95rem] leading-relaxed text-slate">{member.bio}</p>
           <p className="mt-5 text-[0.78rem] font-semibold uppercase tracking-[0.1em] text-slate/80">{member.fluency}</p>
+          <button
+            onClick={onClose}
+            className="mt-7 rounded bg-navy px-5 py-2.5 text-[0.88rem] font-semibold text-on-dark transition-colors hover:bg-navy-deep"
+          >
+            {closeLabel}
+          </button>
         </div>
       </div>
     </div>
