@@ -1,26 +1,174 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* Fixed light text on dark/coloured surfaces (never themed) */
+  --color-on-dark: #f4f6f8;
+
+  /* Brand spark — the logo gradient stops, for decorative accents only */
+  --color-orange-bright: #f26b2a;
+  --color-gold-bright: #efa82e;
+
+  /* Institutional surfaces — warm, logo-aligned (no blue) */
+  --color-paper: #ffffff;
+  --color-mist: #f6f2ec;
+  --color-mist-deep: #ece4d8;
+  --color-line: #e6ded2;
+
+  /* Ink — warm charcoal (from the logo wordmark) */
+  --color-ink: #221c17;
+  --color-slate: #6f655a;
+
+  /* Dark structure (logo black) + sector lanes (logo family: charcoal / gold / orange) */
+  --color-navy: #2a2420;       /* Private lane + dark surfaces */
+  --color-navy-deep: #1a1511;  /* hero panel, footer */
+  --color-teal: #a4751a;       /* NGO lane = gold */
+  --color-amber: #d2691e;      /* Government lane = terracotta orange */
+
+  /* Accent (rationed) — AA on white/mist */
+  --color-orange: #c2410c;
+  --color-gold: #b07d12;
+
+  /* Text-grade lane variants (AA on white/mist) */
+  --color-teal-ink: #8a5e12;
+  --color-amber-ink: #b3520f;
+
+  --font-display: var(--font-newsreader), Georgia, serif;
+  --font-sans: var(--font-public), ui-sans-serif, system-ui, sans-serif;
+}
+
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #221c17;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Dark mode — warm near-black surfaces; orange/gold/charcoal accents (no blue) */
+.dark {
+  --color-paper: #16120e;
+  --color-mist: #1f1813;
+  --color-mist-deep: #271f17;
+  --color-line: #322a21;
+  --color-ink: #efe7da;
+  --color-slate: #b3a695;
+  --color-orange: #f0915f;
+  --color-teal-ink: #dca93f;
+  --color-amber-ink: #f0915f;
+  --background: #16120e;
+  --foreground: #efe7da;
+}
+.dark body { background: var(--color-paper); color: var(--color-ink); }
+
+/* Brand gradient (logo) — decorative accents only, never behind text */
+.brand-bar { background-image: linear-gradient(90deg, var(--color-orange-bright), var(--color-gold-bright)); }
+
+html { scroll-behavior: smooth; }
+section[id], [id="top"] { scroll-margin-top: 4.5rem; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition-duration: 0.01ms !important; }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Visible keyboard focus (WCAG 2.4.7) */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-navy);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+.on-dark :where(a, button, input, select, textarea):focus-visible {
+  outline-color: #ffffff;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 1.02rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
 }
+
+::selection { background: color-mix(in srgb, var(--color-navy) 18%, transparent); }
+
+/* Typographic system */
+.font-display { font-family: var(--font-display); }
+
+.eyebrow {
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 0.74rem;
+  letter-spacing: 0.14em;
+  color: var(--color-orange);
+}
+
+.h1 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+}
+.h2 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.9rem, 3.5vw, 2.9rem);
+  line-height: 1.12;
+  letter-spacing: -0.005em;
+}
+.h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.35rem;
+  line-height: 1.2;
+}
+.lead {
+  font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+  line-height: 1.6;
+  color: var(--color-slate);
+}
+.measure { max-width: 65ch; }
+
+/* Rules + cards */
+.accent-rule {
+  width: 3.5rem;
+  height: 3px;
+  border-radius: 2px;
+  background-image: linear-gradient(90deg, var(--color-orange-bright), var(--color-gold-bright));
+}
+.card {
+  background: var(--color-paper);
+  border: 1px solid var(--color-line);
+  border-radius: 4px;
+  transition: box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.card:hover {
+  border-color: color-mix(in srgb, var(--color-navy) 30%, var(--color-line));
+  box-shadow: 0 18px 40px -28px rgba(20, 42, 68, 0.45);
+}
+
+/* Form controls */
+.in {
+  width: 100%;
+  background: var(--color-paper);
+  border: 1px solid var(--color-line);
+  border-radius: 4px;
+  padding: 0.7rem 0.85rem;
+  font-size: 0.96rem;
+  color: var(--color-ink);
+}
+.in::placeholder { color: color-mix(in srgb, var(--color-ink) 40%, transparent); }
+.in:focus {
+  outline: none;
+  border-color: var(--color-navy);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-navy) 16%, transparent);
+}
+select.in {
+  appearance: none;
+  cursor: pointer;
+  padding-right: 2rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23586273' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.7rem center;
+}
+.lbl { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.04em; color: var(--color-slate); }
